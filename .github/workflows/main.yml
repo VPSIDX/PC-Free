@@ -1,0 +1,25 @@
+name: Windows VPS
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Setup RDP
+        run: |
+          net user runneradmin Password123
+          net localgroup administrators runneradmin /add
+
+      - name: Download ngrok
+        run: |
+          Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+          Expand-Archive ngrok.zip
+
+      - name: Add ngrok token
+        run: |
+          .\ngrok.exe config add-authtoken 3AWLYf2BQblxVsSLygZ1IZ65rB6_2Qe8LKR6QGsMEKNXJui7L
+
+      - name: Start RDP
+        run: |
+          .\ngrok.exe tcp 3389
