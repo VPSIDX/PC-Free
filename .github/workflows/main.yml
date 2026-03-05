@@ -6,9 +6,9 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Setup RDP
-        run: |
-          net user runneradmin Password123
+
+      - name: Set password
+        run: net user runneradmin Password123
 
       - name: Download ngrok
         run: |
@@ -16,9 +16,7 @@ jobs:
           Expand-Archive ngrok.zip
 
       - name: Add ngrok token
-        run: |
-          .\ngrok.exe config add-authtoken 3AWLYf2BQblxVsSLygZ1IZ65rB6_2Qe8LKR6QGsMEKNXJui7L
+        run: .\ngrok.exe config add-authtoken 3AWLYf2BQblxVsSLygZ1IZ65rB6_2Qe8LKR6QGsMEKNXJui7L
 
-      - name: Start RDP
-        run: |
-          .\ngrok.exe tcp 3389
+      - name: Start ngrok
+        run: .\ngrok.exe tcp 3389
