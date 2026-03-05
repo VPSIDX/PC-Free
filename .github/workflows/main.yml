@@ -9,7 +9,6 @@ jobs:
       - name: Setup RDP
         run: |
           net user runneradmin Password123
-          net localgroup administrators runneradmin /add
 
       - name: Download ngrok
         run: |
